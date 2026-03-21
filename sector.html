@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sector Officer Details - WBLA-2026</title>
+    <style>
+        /* Base Setup */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Responsive Container */
+        .table-container {
+            width: 100%;
+            max-width: 1400px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden; /* Contains the border */
+            border: 1px solid #000;
+        }
+
+        .title {
+            text-align: center;
+            font-size: clamp(16px, 4vw, 22px);
+            font-weight: bold;
+            padding: 15px;
+            background: #fff;
+            border-bottom: 1px solid #000;
+            text-transform: uppercase;
+        }
+
+        /* Horizontal Scroll Wrapper */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            min-width: 1500px; /* Forces enough width for data clarity */
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 10px 6px;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        /* Sticky Columns for identification */
+        .sticky-col {
+            position: sticky;
+            left: 0;
+            background-color: #fff !important;
+            z-index: 1;
+            border-right: 2px solid #000;
+        }
+
+        .booth-list {
+            max-width: 200px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .phone-no {
+            white-space: nowrap;
+            font-weight: bold;
+            color: #d32f2f; /* Highlighted for quick reading */
+        }
+
+        /* Scroll Hint */
+        .scroll-hint {
+            display: none;
+            font-size: 12px;
+            color: #666;
+            padding: 5px;
+            font-style: italic;
+        }
+
+        @media screen and (max-width: 1000px) {
+            .scroll-hint { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <div class="title">Sector Officer [CIVIL & POLICE SECTOR] details for WBLA-2026</div>
+    
+    <div class="scroll-hint">Swipe left to view contact details and Police Sector info &rarr;</div>
+    
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sticky-col">AC NO</th>
+                    <th>AC Name</th>
+                    <th>Sector No</th>
+                    <th>Sector Name</th>
+                    <th>Lat / Long</th>
+                    <th>Booths (PS Nos) Tagged</th>
+                    <th>Total Booths</th>
+                    <th>Total Premises</th>
+                    <th>Sector Officer Name / Desig.</th>
+                    <th>SO Phone No</th>
+                    <th>Sector Assistant Name</th>
+                    <th>SA Phone No</th>
+                    <th>Police Sector</th>
+                    <th>Police Designation</th>
+                    <th>Police Officer & Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="5" class="sticky-col">115</td>
+                    <td rowspan="5">Rajarhat-Newtown</td>
+                    <td>8</td>
+                    <td>Sulonguri Clonypara Madhyamik Vidyalaya</td>
+                    <td>22.594 / 88.451</td>
+                    <td class="booth-list">260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 278, 279, 282, 283</td>
+                    <td>20</td>
+                    <td>12</td>
+                    <td>Prakash Ghosh (BYO)</td>
+                    <td class="phone-no">8759009389</td>
+                    <td>Siddheswar Chakravarty</td>
+                    <td class="phone-no">9093878543</td>
+                    <td>BDNPC</td>
+                    <td>New Town</td>
+                    <td>SI Tapas Kumar Panja (9748826321)</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Jyotinagar F P School</td>
+                    <td>22.598 / 88.445</td>
+                    <td class="booth-list">114, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130</td>
+                    <td>11</td>
+                    <td>9</td>
+                    <td>Arindam Kumar Mondal</td>
+                    <td class="phone-no">9830650444</td>
+                    <td>Pallab Oroan</td>
+                    <td class="phone-no">9831275559</td>
+                    <td>BDNPC</td>
+                    <td>New Town</td>
+                    <td>ASI Ruhulamin Purkite (9830259044)</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>Jyangra Hatiara-II GP Office</td>
+                    <td>22.601 / 88.454</td>
+                    <td class="booth-list">280, 281, 284, 285, 286, 287, 289, 290</td>
+                    <td>8</td>
+                    <td>7</td>
+                    <td>Sariful Islam</td>
+                    <td class="phone-no">9681035140</td>
+                    <td>Abhishek Banerjee</td>
+                    <td class="phone-no">6290837319</td>
+                    <td>BDNPC</td>
+                    <td>New Town</td>
+                    <td>ASI Pinaki Basu (8820920004)</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>Mahishbathan-II GP Office</td>
+                    <td>22.581 / 88.444</td>
+                    <td class="booth-list">308, 309, 310, 311, 314, 315, 316</td>
+                    <td>7</td>
+                    <td>6</td>
+                    <td>Sankar Kumar pal</td>
+                    <td class="phone-no">8910903206</td>
+                    <td>Kaushik Rudra</td>
+                    <td class="phone-no">9433770712</td>
+                    <td>BDNPC</td>
+                    <td>New Town</td>
+                    <td>ASI Ramesh Sardar (6291174621)</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>Mahishbathan-II GP Office</td>
+                    <td>22.581 / 88.444</td>
+                    <td class="booth-list">291 to 302, 305, 306, 307</td>
+                    <td>15</td>
+                    <td>4</td>
+                    <td>Sarif Ahmed</td>
+                    <td class="phone-no">9933007527</td>
+                    <td>Anup Kr. Mondal</td>
+                    <td class="phone-no">7407914561</td>
+                    <td>BDNPC</td>
+                    <td>New Town</td>
+                    <td>ASI Rajikul Haque (8016865220)</td>
+                </tr>
+                <tr>
+                    <td class="sticky-col">117</td>
+                    <td>Rajarhat Gopalpur</td>
+                    <td>13</td>
+                    <td>Gobindanagar Community Hall</td>
+                    <td>22.6 / 88.43</td>
+                    <td class="booth-list">162 to 174, 177, 177A, 178</td>
+                    <td>17</td>
+                    <td>6</td>
+                    <td>Sri Mridul Goswami</td>
+                    <td class="phone-no">8777606350</td>
+                    <td>Rupak Dasgupta</td>
+                    <td class="phone-no">9836050837</td>
+                    <td>BDNPC</td>
+                    <td>New Town</td>
+                    <td>ASI Rabi Oraw (6290160058)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

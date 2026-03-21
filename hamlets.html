@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerable Booths with Hamlet - 2026</title>
+    <style>
+        /* Modern Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            padding: 20px;
+            background-color: #f4f7f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: clamp(18px, 5vw, 24px);
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #1a3a5a;
+            letter-spacing: 1px;
+        }
+
+        /* Container for the table */
+        .report-card {
+            width: 100%;
+            max-width: 1300px;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #d1d9e0;
+        }
+
+        /* Responsive Scroll Wrapper - This makes all columns move together */
+        .scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* Ensures table stays wide enough to keep data on one line */
+            min-width: 1100px; 
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            padding: 15px 10px;
+            border-bottom: 2px solid #000;
+            border-right: 1px solid #d1d9e0;
+        }
+
+        td {
+            padding: 12px 10px;
+            font-size: 13px;
+            color: #444;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Specific alignment for text-heavy columns */
+        .text-left { text-align: left; }
+        
+        .hamlet-highlight {
+            font-weight: 700;
+            color: #d32f2f;
+        }
+
+        .ac-cell {
+            background-color: #f0f4f8;
+            font-weight: 600;
+        }
+
+        /* Mobile Swipe Indicator */
+        .mobile-hint {
+            display: none;
+            background: #1a3a5a;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 1100px) {
+            .mobile-hint { display: block; }
+            body { padding: 10px; }
+        }
+
+        /* Print Optimization */
+        @media print {
+            .report-card { box-shadow: none; border: 1px solid black; }
+            .mobile-hint { display: none; }
+            table { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-title">Vulnerable Booths with Hamlet</div>
+
+    <div class="mobile-hint">↔ Swipe table horizontally to see all data</div>
+
+    <div class="report-card">
+        <div class="scroll-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>District</th>
+                        <th>Police Comm.</th>
+                        <th>PS Name</th>
+                        <th>AC No. & Name</th>
+                        <th>No. of P.S.</th>
+                        <th style="width: 250px;">Polling Station No & Name</th>
+                        <th style="width: 200px;">Hamlets (Vulnerable)</th>
+                        <th>Nature of CBM Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">115 Rajarhat New Town</td><td>1</td><td class="text-left">264 Nabinchandra F.P.School</td><td class="hamlet-highlight">Gauranganagar</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">115 Rajarhat New Town</td><td>1</td><td class="text-left">265 Nabinchandra F.P.School</td><td class="hamlet-highlight">Saradapally</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">115 Rajarhat New Town</td><td>1</td><td class="text-left">280 Abhijan Sporting Club</td><td class="hamlet-highlight">Notunpally</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">115 Rajarhat New Town</td><td>1</td><td class="text-left">281 Abhijan Sporting Club</td><td class="hamlet-highlight">Mathpara</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">117 Rajarhat Gopalpur</td><td>1</td><td class="text-left">164 Chirasabuj Vidyaniketan, Room- 1</td><td class="hamlet-highlight">Gobindanagar</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">117 Rajarhat Gopalpur</td><td>1</td><td class="text-left">165 Chirasabuj Vidyaniketan, Room- 2</td><td class="hamlet-highlight">Chandiberia</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">117 Rajarhat Gopalpur</td><td>1</td><td class="text-left">168 Chirasabuj Vidyaniketan, Room- 5</td><td class="hamlet-highlight">9 No. Camp Chandiberia</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">117 Rajarhat Gopalpur</td><td>1</td><td class="text-left">166 Gobindanagar Community Hall</td><td class="hamlet-highlight">4 No. Goli, Gobindanagar</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">117 Rajarhat Gopalpur</td><td>1</td><td class="text-left">167 Santimoynagar Prathamik Vidyalaya</td><td class="hamlet-highlight">Santimoynagar</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">117 Rajarhat Gopalpur</td><td>1</td><td class="text-left">173 Krishnapur Basic Primary School, Room-1</td><td class="hamlet-highlight">Rajbansi Para,</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">117 Rajarhat Gopalpur</td><td>1</td><td class="text-left">174 Krishnapur Basic Primary School, Room-2</td><td class="hamlet-highlight">Sobujpally</td><td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

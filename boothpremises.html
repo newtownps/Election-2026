@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Centered Election Tables</title>
+    <style>
+        /* This centers everything on the page */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers horizontally */
+            justify-content: flex-start;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 40px 0;
+        }
+
+        .table-container {
+            font-family: Arial, sans-serif;
+            margin-bottom: 50px;
+            width: 90%;
+            max-width: 700px; /* Limits width for better look on desktop */
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds a subtle professional shadow */
+        }
+
+        .table-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 15px;
+            border: 1px solid black;
+            border-bottom: none;
+            background-color: #e9ecef;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .type-col {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .bold-text {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="table-container">
+        <div class="table-title">AC- 115</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl No.</th>
+                    <th>Type of Premises</th>
+                    <th>Total Premises</th>
+                    <th>Total Polling Booths</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td class="type-col bold-text">1 Booths Premises</td><td class="bold-text">19</td><td class="bold-text">19</td></tr>
+                <tr><td>2</td><td class="type-col bold-text">2 Booths Premises</td><td class="bold-text">9</td><td class="bold-text">18</td></tr>
+                <tr><td>3</td><td class="type-col bold-text">3 Booths Premises</td><td class="bold-text">3</td><td class="bold-text">9</td></tr>
+                <tr><td>4</td><td class="type-col bold-text">4 Booths Premises</td><td class="bold-text">2</td><td class="bold-text">8</td></tr>
+                <tr><td>7</td><td class="type-col bold-text">7 Booths Premises</td><td class="bold-text">1</td><td class="bold-text">7</td></tr>
+                <tr><td colspan="2" class="bold-text">TOTAL</td><td class="bold-text">34</td><td class="bold-text">61</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-title">AC- 117</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl No.</th>
+                    <th>Type of Premises</th>
+                    <th>Total Premises</th>
+                    <th>Total Polling Booths</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td class="type-col">1 Booths Premises</td><td>4</td><td>4</td></tr>
+                <tr><td>2</td><td class="type-col">2 Booths Premises</td><td>1</td><td>2</td></tr>
+                <tr><td>3</td><td class="type-col">3 Booths Premises</td><td>2</td><td>6</td></tr>
+                <tr><td>5</td><td class="type-col">5 Booths Premises</td><td>1</td><td>5</td></tr>
+                <tr><td colspan="2" class="bold-text">TOTAL</td><td class="bold-text">8</td><td class="bold-text">17</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-title">AC- 115 & AC- 117</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl No.</th>
+                    <th>Type of Premises</th>
+                    <th>Total Premises</th>
+                    <th>Total Polling Booths</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td class="type-col bold-text">1 Booths Premises</td><td class="bold-text">23</td><td class="bold-text">23</td></tr>
+                <tr><td>2</td><td class="type-col bold-text">2 Booths Premises</td><td class="bold-text">10</td><td class="bold-text">20</td></tr>
+                <tr><td>3</td><td class="type-col bold-text">3 Booths Premises</td><td class="bold-text">5</td><td class="bold-text">15</td></tr>
+                <tr><td>4</td><td class="type-col bold-text">4 Booths Premises</td><td class="bold-text">2</td><td class="bold-text">8</td></tr>
+                <tr><td>5</td><td class="type-col bold-text">5 Booths Premises</td><td class="bold-text">1</td><td class="bold-text">5</td></tr>
+                <tr><td>7</td><td class="type-col bold-text">7 Booths Premises</td><td class="bold-text">1</td><td class="bold-text">7</td></tr>
+                <tr><td colspan="2" class="bold-text">TOTAL</td><td class="bold-text">42</td><td class="bold-text">78</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

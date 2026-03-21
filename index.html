@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Booth Profile - Responsive</title>
+    <style>
+        /* Modern Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: #cddde9;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 15px; /* Better spacing for mobile edges */
+        }
+
+        /* Container: Fluid Responsive Layout */
+        .report-wrapper {
+            width: 100%;
+            max-width: 1100px; /* Increased width for better web viewing */
+            background: white;
+            box-shadow: 0 12px 35px rgba(0, 20, 30, 0.3);
+            padding: clamp(15px, 4vw, 30px);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            margin: auto; /* Centers the card vertically and horizontally */
+        }
+
+        /* Header responsive layout */
+        h1 {
+            font-size: clamp(16px, 4vw, 24px);
+            font-weight: 700;
+            color: #0a3347;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2.5px solid #1f6e93;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        h1 .badge {
+            background: #195c7c;
+            color: white;
+            font-size: 0.6em;
+            padding: 6px 16px;
+            border-radius: 40px;
+            white-space: nowrap;
+        }
+
+        /* Top Stats Grid */
+        .stat-strip {
+            display: grid;
+            /* Adaptive grid: small screens 1-col, medium 2-col, large multi-col */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .stat-pill {
+            background: #edf6fc;
+            border: 1px solid #bdd3e6;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #003051;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+
+        .stat-pill:hover {
+            transform: translateY(-2px);
+            background: #e1eff9;
+        }
+
+        .stat-pill strong {
+            font-size: 1.1em;
+            color: #003f60;
+        }
+
+        /* AC Columns: Flex-grow handles the responsive wrap */
+        .ac-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .ac-col {
+            flex: 1 1 350px; /* Wraps when container is less than ~720px */
+            background: #ffffff;
+            border: 1px solid #c4d9eb;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 45, 65, 0.05);
+        }
+
+        .ac-header {
+            background: #d9ebf7;
+            padding: 12px 18px;
+            font-weight: 700;
+            font-size: 18px;
+            color: #0d4662;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #b1cfec;
+        }
+
+        .ac-header .booth-badge {
+            background: #aab9c2;
+            color: #111;
+            font-size: 0.7em;
+            padding: 3px 12px;
+            border-radius: 50px;
+        }
+
+        .ac-body {
+            padding: 15px 18px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 8px 0;
+            border-bottom: 1px dashed #c5d9ec;
+            font-size: 14px;
+        }
+
+        .item:last-child { border-bottom: none; }
+
+        .item .val {
+            background: #eaf3fb;
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #002f48;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .val.nil {
+            background: #e2e8ef;
+            color: #3c5e75;
+        }
+
+        .sub-item {
+            padding-left: 20px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            color: #255f7e;
+            padding-bottom: 6px;
+            margin-top: -4px;
+        }
+
+        /* Enforcement Cluster */
+        .minor-cluster {
+            background: #f0f8ff;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 15px;
+            border: 1px solid #bfd9f0;
+        }
+
+        .minor-cluster div {
+            font-size: 14px;
+        }
+
+        .minor-cluster strong {
+            color: #0a415b;
+            margin-right: 4px;
+        }
+
+        /* Gun Block */
+        .gun-block {
+            background: #e1eff9;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #9ec0dd;
+        }
+
+        .gun-title {
+            font-weight: 700;
+            color: #103f59;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .gun-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .gun-grid span {
+            background: white;
+            border-radius: 40px;
+            padding: 8px 15px;
+            border: 1px solid #85b3d1;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* Summary Boxes */
+        .summary-pill-box {
+            display: flex; 
+            flex-direction: column; /* Stacked for better readability on small screens */
+            gap: 10px; 
+            background: #f2f9ff; 
+            border-radius: 20px; 
+            padding: 15px; 
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .footer-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            background: #e6f0f8;
+            border-radius: 20px;
+            padding: 15px 20px;
+            border: 1px solid #aecae2;
+            font-size: 14px;
+        }
+
+        .small-note {
+            background: #f9fcff;
+            border-radius: 30px;
+            padding: 8px 20px;
+            border: 1px solid #bed6ee;
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #0a415b;
+        }
+
+        /* Link Styling */
+        a {
+            color: #ff0080;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #c600ee;
+            opacity: 0.8;
+        }
+
+        /* Map styling */
+        .map-container {
+            width: 100%;
+            margin-top: 25px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 1px solid #000;
+        }
+
+        /* Print Settings */
+        @media print {
+            body { background: white; padding: 0; }
+            .report-wrapper { box-shadow: none; border: none; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-wrapper">
+    <h1>
+        <span>🗳️ ELECTION PROFILE <br> WEST BENGAL ASSEMBLY ELECTION 2026 <br> NEW TOWN POLICE STATION <br> BIDHANNAGAR POLICE COMMISSIONERATE</span>
+        <span >
+            <div>
+                <a href="https://bidhannagarcitypolice.gov.in/"><img src="logo.png" alt=""></a>
+            </div>
+            <div class="badge">
+                <a href="contact.html">EMERGENCY CONTACT</a></span>
+            </div>
+            
+    </h1>
+
+    <div class="stat-strip">
+        <div class="stat-pill"> <a href="booth115&117all.html">Total Booths <strong>78</strong></a> </div>
+        <div class="stat-pill"><a href="femalebooths.html">Female Booths <strong>13</strong></a> </div>
+        <div class="stat-pill"><a href="troubleMongers.html">Trouble Mongers <strong>19</strong></a> </div>
+        <div class="stat-pill"><a href="vulnerableVoters.html">Vulnerable Voters <strong>10</strong></a> </div>
+        <div class="stat-pill"><a href="hamlets.html">Hamlets <strong>11</strong></a> </div>
+        <div class="stat-pill"><a href="historySheeters.html">History Sheeters <strong>06</strong></a> </div>
+        <div class="stat-pill"><a href="sector.html">Sectors <strong>06</strong></a> </div>
+        <div class="stat-pill"><a href="fstsstnaka.html">FST/SST/NAKA <strong></strong></a> </div>
+    </div>
+
+    <div class="ac-row">
+        <div class="ac-col">
+            <div class="ac-header">
+                <span>🏛️ AC 115</span>
+                <span class="booth-badge"><a href="ac115booths.html">Booth 61</a></span>
+            </div>
+            <div class="ac-body">
+                <div class="item"><span class="label">📍 <a href="boothpremises.html">Premises</a></span><span class="val">34</span></div>
+                <div class="item"><span class="label">♀️ <a href="femalebooths.html">Female Booth (total)</a> </span><span class="val">13</span></div>
+                <div class="sub-item"><span>└─ Premises (Female)</span><span class="val">04</span></div>
+                <div class="item"><span class="label">⚠️ <a href="troubleMongers115.html">Trouble Mongers</a></span><span class="val">7</span></div>
+                <div class="item"><span class="label">🧑 <a href="vulnerableVoters115.html">Vulnerable Voters</a></span><span class="val">5</span></div>
+                <div class="item"><span class="label">🏘️ <a href="hamlets115.html">Hamlets</a> </span><span class="val">4</span></div>
+                <div class="item"><span class="label">⚠️ <a href="hamlets115.html">Vulnerable Booths</a></span><span class="val">4</span></div>
+                <div class="item"><span class="label">📋 <a href="historySheeters115.html">History Sheeters</a></span><span class="val">5</span></div>
+                <div class="item"><span class="label">🚩 <a href="sector115.html">Sectors</a> </span><span class="val">5</span></div>
+            </div>
+        </div>
+
+        <div class="ac-col">
+            <div class="ac-header">
+                <span>🏛️ AC 117</span>
+                <span class="booth-badge"><a href="ac117booths.html">Booth 17</a></span>
+            </div>
+            <div class="ac-body">
+                <div class="item"><span class="label">📍 <a href="boothpremises.html">Premises</a></span><span class="val">8</span></div>
+                <div class="item"><span class="label">♀️ Female Booth</span><span class="val nil">Nil</span></div>
+                <div class="item" style="border:none; visibility: hidden;">&nbsp;</div> <div class="item"><span class="label">⚠️ <a href="troubleMongers117.html">Trouble Mongers</a></span><span class="val">12</span></div>
+                <div class="item"><span class="label">🧑 <a href="vulnerableVoters117.html">Vulnerable Voters</a></span><span class="val">5</span></div>
+                <div class="item"><span class="label">🏘️ <a href="hamlets117.html">Hamlets</a></span><span class="val">7</span></div>
+                <div class="item"><span class="label">⚠️ <a href="hamlets117.html">Vulnerable Booths</a></span><span class="val">7</span></div>
+                <div class="item"><span class="label">📋 <a href="historySheeters117.html">History Sheeters</a> </span><span class="val">1</span></div>
+                <div class="item"><span class="label">🚩 <a href="sector117.html">Sectors</a></span><span class="val">1</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="minor-cluster">
+        <div><strong><a href="nbw.html">NBW</a></strong> 05</div>
+        <div><strong><a href="arms.html">ARMS</a></strong> 28</div>
+        <div><strong><a href="fst.html">FST</a></strong> 02</div>
+        <div><strong><a href="sst.html">SST</a></strong> 01</div>
+        <div><strong><a href="naka.html">NAKA</a></strong> 02</div>
+    </div>
+
+
+    <div class="map-container">
+        <iframe 
+            src="https://www.google.com/maps/d/embed?mid=1unLGOTUyE4bn_i95fnCkhqAQdEABrp0&ehbc=2E312F" 
+            width="100%" 
+            height="450" 
+            style="border:0; display: block;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </div>
+</div>
+
+</body>
+</html>
