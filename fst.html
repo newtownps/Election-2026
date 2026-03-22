@@ -3,242 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duty Roster - Election 2026</title>
+    <title>Election Security Details - 2026</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f9;
-            padding: 10px;
-            color: #333;
+        /* General Styles */
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background-color: #f4f4f4; 
             margin: 0;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: auto;
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        .table-section { 
+            background: white; 
+            margin-bottom: 40px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+            padding: 20px; 
+            border: 1px solid #000; 
         }
 
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+        h1 { 
+            text-align: center; 
+            text-decoration: underline; 
+            font-size: 24px; 
+            margin-bottom: 20px; 
         }
 
-        /* Responsive Table Wrapper */
-        .table-container {
+        /* Responsive Table Container */
+        .table-responsive {
             width: 100%;
-            overflow-x: auto; /* Fallback for very small screens */
-            margin-bottom: 40px;
+            overflow-x: auto; /* Enables horizontal scroll */
+            -webkit-overflow-scrolling: touch;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 10px; 
+            font-size: 13px; 
+            min-width: 600px; /* Ensures table doesn't squash too much */
         }
 
-        .section-header th {
-            background-color: #2c3e50;
-            color: white;
-            padding: 12px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .col-header th {
-            background-color: #ecf0f1;
-            color: #2c3e50;
-            font-weight: bold;
-            padding: 10px 5px;
-            border: 1px solid #dee2e6;
-            vertical-align: middle;
-        }
-
-        td {
-            padding: 12px 8px;
-            border: 1px solid #dee2e6;
-            text-align: center;
+        th, td { 
+            border: 1px solid black; 
+            padding: 10px; 
+            text-align: center; 
+            vertical-align: middle; 
             word-wrap: break-word;
         }
 
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .whatsapp-no { font-weight: bold; color: #27ae60; }
-
-        /* --- RESPONSIVE CSS --- */
-        @media screen and (max-width: 1024px) {
-            /* Hide traditional headers */
-            thead {
-                display: none;
-            }
-
-            table, tbody, tr, td {
-                display: block;
-                width: 100%;
-            }
-
-            table { border: none; }
-
-            tr {
-                margin-bottom: 25px;
-                border: 1px solid #3498db;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                background: #fff !important;
-            }
-
-            /* Identify the Section on Mobile */
-            tr::before {
-                content: "Duty Assignment Details";
-                display: block;
-                background: #2c3e50;
-                color: white;
-                padding: 10px;
-                font-weight: bold;
-                text-align: center;
-                border-radius: 6px 6px 0 0;
-            }
-
-            td {
-                text-align: left;
-                padding: 12px;
-                padding-left: 50%; /* Space for the label */
-                position: relative;
-                border: none;
-                border-bottom: 1px solid #eee;
-            }
-
-            /* Create labels using the data-label attribute */
-            td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 10px;
-                width: 45%;
-                padding-right: 10px;
-                white-space: normal;
-                font-weight: bold;
-                color: #2c3e50;
-                font-size: 0.75rem;
-                text-transform: uppercase;
-            }
-
-            td:last-child { border-bottom: none; }
-            
-            /* Specific fix for the merged AC Segment cell on mobile */
-            td[rowspan] {
-                background: #ebf5fb;
-                font-size: 1rem;
-            }
+        th { 
+            background-color: #f2f2f2; 
+            font-weight: bold; 
+            text-transform: uppercase; 
         }
 
-        @media print {
-            body { background: white; padding: 0; }
-            .container { box-shadow: none; width: 100%; }
+        .info-header { 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            text-align: center;
+        }
+
+        /* Mobile Adjustments */
+        @media screen and (max-width: 600px) {
+            body { padding: 10px; }
+            h1 { font-size: 20px; }
+            .table-section { padding: 10px; }
+            table { font-size: 12px; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Flying Squad Teams</h2>
-
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr class="section-header">
-                    <th colspan="5">Details of Officer Performing Magistrate Duty</th>
-                    <th colspan="6">Details of Police Personnel</th>
-                </tr>
-                <tr class="col-header">
-                    <th style="width: 8%;">AC Segment</th>
-                    <th style="width: 8%;">Team</th>
-                    <th style="width: 10%;">Magistrate Name</th>
-                    <th style="width: 9%;">Magistrate Desig.</th>
-                    <th style="width: 9%;">WA Number</th>
-                    <th style="width: 10%;">Police Name</th>
-                    <th style="width: 9%;">Police Desig.</th>
-                    <th style="width: 9%;">WA Number</th>
-                    <th style="width: 9%;">Shift 01</th>
-                    <th style="width: 9%;">Shift 02 (Late)</th>
-                    <th style="width: 9%;">Shift 02 (Night)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td data-label="AC Segment"><b>115 Rajarhat New Town</b></td>
-                    <td data-label="Team">Flying Squad, Team-2</td>
-                    <td data-label="Magistrate Name">Sahid Afridi</td>
-                    <td data-label="Magistrate Desig.">Assistant Teacher</td>
-                    <td data-label="WA Number" class="whatsapp-no">9007782483</td>
-                    <td data-label="Police Name">ASI Rajikul Haque (New Town PS)</td>
-                    <td data-label="Police Desig.">Asst. Sub Inspector</td>
-                    <td data-label="WA Number" class="whatsapp-no">8016865220</td>
-                    <td data-label="Shift 01">Available</td>
-                    <td data-label="Shift 02 (Late)">-</td>
-                    <td data-label="Shift 02 (Night)">-</td>
-                </tr>
-                <tr>
-                    <td data-label="AC Segment"><b>115 Rajarhat New Town</b></td>
-                    <td data-label="Team">Flying Squad, Team-3</td>
-                    <td data-label="Magistrate Name">Amjed Ali Gazi</td>
-                    <td data-label="Magistrate Desig.">Assistant Teacher</td>
-                    <td data-label="WA Number" class="whatsapp-no">9830642340</td>
-                    <td data-label="Police Name">LSI Ranjeeta M Pradhan (New Town PS)</td>
-                    <td data-label="Police Desig.">Lady Sub Inspector</td>
-                    <td data-label="WA Number" class="whatsapp-no">9051880020</td>
-                    <td data-label="Shift 01">Available</td>
-                    <td data-label="Shift 02 (Late)">-</td>
-                    <td data-label="Shift 02 (Night)">-</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="table-section">
+        <h1>FST</h1>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>AC Segment</th>
+                        <th>Team</th>
+                        <th>Magistrate Name</th>
+                        <th>Magistrate Desig.</th>
+                        <th>Mobile Number</th>
+                        <th>Police Name</th>
+                        <th>Police Desig.</th>
+                        <th>Mobile Number</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>115 Rajarhat New Town</td>
+                        <td>Flying Squad, Team-2</td>
+                        <td>Sahid Afridi</td>
+                        <td>Assistant Teacher</td>
+                        <td>9007782483</td>
+                        <td>ASI Rajikul Haque (New Town PS)</td>
+                        <td>Asst. Sub Inspector</td>
+                        <td>8016865220</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>115 Rajarhat New Town</td>
+                        <td>Flying Squad, Team-3</td>
+                        <td>Amjed Ali Gazi</td>
+                        <td>Assistant Teacher</td>
+                        <td>9830642340</td>
+                        <td>LSI Ranjeeta M Pradhan (New Town PS)</td>
+                        <td>Lady Sub Inspector</td>
+                        <td>9051880020</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>117 Rajarhat New Town</td>
+                        <td>Flying Squad, Team-12</td>
+                        <td>Ardhendu Parni</td>
+                        <td>Assistant Teacher</td>
+                        <td>8334933903</td>
+                        <td>LSI Ranjeeta M Pradhan (New Town PS)</td>
+                        <td>Lady Sub Inspector</td>
+                        <td>9051880020</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr class="section-header">
-                    <th colspan="5">Details of Officer Performing Magistrate Duty</th>
-                    <th colspan="6">Details of Police Personnel</th>
-                </tr>
-                <tr class="col-header">
-                    <th style="width: 8%;">AC Segment</th>
-                    <th style="width: 8%;">Team</th>
-                    <th style="width: 10%;">Magistrate Name</th>
-                    <th style="width: 9%;">Magistrate Desig.</th>
-                    <th style="width: 9%;">WA Number</th>
-                    <th style="width: 10%;">Police Name</th>
-                    <th style="width: 9%;">Police Desig.</th>
-                    <th style="width: 9%;">WA Number</th>
-                    <th style="width: 9%;">Shift 01</th>
-                    <th style="width: 9%;">Shift 02 (Late)</th>
-                    <th style="width: 9%;">Shift 02 (Night)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td data-label="AC Segment"><b>117-Rajarhat Gopalpur</b></td>
-                    <td data-label="Team">Flying Squad, Team-12</td>
-                    <td data-label="Magistrate Name">Ardhendu Parni</td>
-                    <td data-label="Magistrate Desig.">Assistant Teacher</td>
-                    <td data-label="WA Number" class="whatsapp-no">8334933903</td>
-                    <td data-label="Police Name">LSI Ranjeeta M Pradhan (New Town PS)</td>
-                    <td data-label="Police Desig.">Lady Sub Inspector</td>
-                    <td data-label="WA Number" class="whatsapp-no">9051880020</td>
-                    <td data-label="Shift 01">Available</td>
-                    <td data-label="Shift 02 (Late)">-</td>
-                    <td data-label="Shift 02 (Night)">-</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+ 
 
 </body>
 </html>
