@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLICE COMMISSARIAT OPERATIVE REGISTRY</title>
+    <style>
+        /* GAME UI THEME: RETRO-FUTURISM / VAPORWAVE */
+        :root {
+            --ui-bg: #050517; /* Deep Space */
+            --ui-panel: #11112e; /* Dark Panel */
+            --ui-border: #ff00ff; /* Neon Magenta */
+            --ui-border-alt: #00ffff; /* Neon Cyan */
+            --ui-text-primary: #e0e0ff; /* Pale Ghost */
+            --ui-text-accent: #00ffaa; /* Digital Green */
+            --ui-text-highlight: #ffee00; /* Gold Coin */
+            --ui-shadow: rgba(255, 0, 255, 0.5);
+            --font-ui: 'Courier New', Courier, monospace; /* Pseudo-pixelated */
+        }
+
+        body {
+            font-family: var(--font-ui);
+            background-color: var(--ui-bg);
+            margin: 0;
+            padding: 10px;
+            color: var(--ui-text-primary);
+            overflow-x: hidden;
+            background-image: linear-gradient(0deg, transparent 24%, rgba(255, 0, 255, .05) 25%, rgba(255, 0, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 255, .05) 75%, rgba(255, 0, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 0, 255, .05) 25%, rgba(255, 0, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 255, .05) 75%, rgba(255, 0, 255, .05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            /* Cyber Grid background */
+        }
+
+        .main-panel {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--ui-panel);
+            border: 4px solid var(--ui-border);
+            border-radius: 12px;
+            box-shadow: 0 0 20px var(--ui-shadow), inset 0 0 10px rgba(0,255,255,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* HEADER & ANIMATED TITLE */
+        header {
+            background: linear-gradient(90deg, #1a1a4d, #4d1a4d, #1a1a4d);
+            background-size: 200% 100%;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 3px solid var(--ui-border-alt);
+            animation: gradientMove 6s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--ui-text-highlight);
+            text-shadow: 0 0 8px var(--ui-text-highlight), 0 0 12px #ff0000;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h2.subtitle {
+            margin-top: 5px;
+            font-size: 1rem;
+            color: var(--ui-text-accent);
+            opacity: 0.8;
+            font-weight: normal;
+        }
+
+        /* DATA TABLE STYLING */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            table-layout: fixed; /* Important for long emails */
+        }
+
+        th {
+            background-color: #050517;
+            color: var(--ui-border-alt);
+            font-weight: bold;
+            text-align: left;
+            padding: 15px 10px;
+            border-bottom: 2px solid var(--ui-border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        /* Columns Widths */
+        th:nth-child(1) { width: 5%; } /* Sl No */
+        th:nth-child(2) { width: 25%; } /* Name */
+        th:nth-child(3) { width: 35%; } /* Designation */
+        th:nth-child(4) { width: 12%; } /* CUG */
+        th:nth-child(5) { width: 23%; } /* Email */
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(255,0,255,0.2);
+            vertical-align: top;
+            overflow-wrap: break-word; /* Handle long emails */
+        }
+
+        /* Alternate Row Colors & Hover */
+        tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02); }
+        tr:hover td {
+            background-color: rgba(0, 255, 255, 0.08);
+            color: #fff;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        /* Interactive Links (Teleport/Comms) */
+        .teleport-link {
+            color: var(--ui-text-highlight);
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.1s ease;
+        }
+        .teleport-link:hover {
+            color: #fff;
+            transform: scale(1.1);
+            text-shadow: 0 0 5px var(--ui-text-highlight);
+        }
+        .teleport-link:active { transform: scale(0.95); }
+
+        .comms-link {
+            color: var(--ui-text-accent);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+        .comms-link:hover {
+            color: #fff;
+            text-shadow: 0 0 5px var(--ui-text-accent);
+            border-bottom: 1px solid #fff;
+        }
+
+        /* DATA HIGHLIGHT COLORS */
+        td[data-label="Sl No"] {
+            font-weight: bold;
+            color: var(--ui-border);
+            text-align: center;
+        }
+        td[data-label="Name"] {
+            color: #fff;
+            font-weight: bold;
+        }
+        td[data-label="Designation"] {
+            color: #bbb;
+        }
+
+        /* GAME OVER FOOTER */
+        footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 2px solid var(--ui-border-alt);
+            background: #000;
+            color: #444;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+        }
+
+        /* ============================== */
+        /* RESPONSIVE GAME UI (Mobile)     */
+        /* ============================== */
+        @media (max-width: 950px) {
+            body { padding: 5px; }
+            .main-panel { border-width: 2px; }
+            header { padding: 15px; }
+            h1 { font-size: 1.2rem; }
+            h2.subtitle { font-size: 0.8rem; }
+
+            table, thead, tbody, th, td, tr { display: block; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            
+            tr {
+                border: 2px solid var(--ui-border);
+                margin-bottom: 15px;
+                border-radius: 8px;
+                background: var(--ui-panel);
+            }
+            
+            td {
+                border: none;
+                border-bottom: 1px solid rgba(255,0,255,0.15);
+                position: relative;
+                padding-left: 40%;
+                text-align: right;
+                min-height: 25px;
+                white-space: normal;
+                overflow: visible;
+            }
+            td:last-child { border-bottom: none; }
+
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 35%;
+                text-align: left;
+                font-weight: bold;
+                color: var(--ui-border-alt);
+                text-transform: uppercase;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            /* Adjust mobile alignment */
+            td[data-label="Sl No"] { text-align: right; }
+            .teleport-link, .comms-link { display: inline; word-break: break-all;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-panel">
+    <header>
+        <h1>[ ADMINISTRATIVE FLOW HIERARCHY ]</h1>
+        <h2 class="subtitle">BIDHANNAGAR POLICE COMMISSIONERATE - CUG CONTACT REGISTRY</h2>
+    </header>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>[ SL ]</th>
+                <th>[ NAME ]</th>
+                <th>[ RANK ]</th>
+                <th>[ CONTACT/CUG ]</th>
+                <th>[ EMAIL ]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td data-label="Sl No">1</td><td data-label="Name">Shri Murli Dhar, IPS</td><td data-label="Designation">Commissioner of Police</td><td data-label="CUG"><a href="tel:9147889490" class="teleport-link">9147889490</a></td><td data-label="Email"><a href="mailto:cpbdn@policewb.gov.in" class="comms-link">cpbdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">2</td><td data-label="Name">Shri Badana Varun Chandra Sekhar, IPS</td><td data-label="Designation">Jt. Commissioner of Police (HQ)</td><td data-label="CUG"><a href="tel:9147889469" class="teleport-link">9147889469</a></td><td data-label="Email"><a href="mailto:jtcpbdn@policewb.gov.in" class="comms-link">jtcpbdn@policewb.gov.in</a>, <a href="mailto:dchqbdn@policewb.gov.in" class="comms-link">dchqbdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">3</td><td data-label="Name">Shri Makwana Meetkumar Sanjaykumar, IPS</td><td data-label="Designation">Deputy Commissioner of Police (Traffic)</td><td data-label="CUG"><a href="tel:9147889484" class="teleport-link">9147889484</a></td><td data-label="Email"><a href="mailto:dcp-traffic@policewb.gov.in" class="comms-link">dcp-traffic@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">4</td><td data-label="Name">Shri Manish Joshi, IPS</td><td data-label="Designation">Deputy Commissioner of Police (Bidhannagar)</td><td data-label="CUG"><a href="tel:9147889489" class="teleport-link">9147889489</a></td><td data-label="Email"><a href="mailto:dcp-bdn@policewb.gov.in" class="comms-link">dcp-bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">5</td><td data-label="Name">Shri Chandan Ghosh, IPS</td><td data-label="Designation">Deputy Commissioner of Police (Special Branch)</td><td data-label="CUG"><a href="tel:9147889468" class="teleport-link">9147889468</a></td><td data-label="Email"><a href="mailto:dcsbbdn@policewb.gov.in" class="comms-link">dcsbbdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">6</td><td data-label="Name">Shri Manish Joshi, IPS</td><td data-label="Designation">Deputy Commissioner of Police (Detective Department)</td><td data-label="CUG"><a href="tel:9147889488" class="teleport-link">9147889488</a></td><td data-label="Email"><a href="mailto:dcdd.bidhan@policewb.gov.in" class="comms-link">dcdd.bidhan@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">7</td><td data-label="Name">Shri Jyotirmoy Roy, IPS</td><td data-label="Designation">Deputy Commissioner of Police (New Town)</td><td data-label="CUG"><a href="tel:9147889506" class="teleport-link">9147889506</a></td><td data-label="Email"><a href="mailto:dcp-newtown@policewb.gov.in" class="comms-link">dcp-newtown@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">8</td><td data-label="Name">Ms. Aishwarya Sagar, IPS</td><td data-label="Designation">Deputy Commissioner of Police (Airport Division)</td><td data-label="CUG"><a href="tel:9147889483" class="teleport-link">9147889483</a></td><td data-label="Email"><a href="mailto:dcp-airport@policewb.gov.in" class="comms-link">dcp-airport@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">9</td><td data-label="Name">Shri Manoranjan Ghosh, WBPS</td><td data-label="Designation">Holding the charge of Addl. Deputy Commissioner of Police (Bidhannagar)</td><td data-label="CUG"><a href="tel:9147889458" class="teleport-link">9147889458</a></td><td data-label="Email"><a href="mailto:adcpbdn@policewb.gov.in" class="comms-link">adcpbdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">10</td><td data-label="Name">Shri Chandan Ghosh, IPS</td><td data-label="Designation">Addl. Deputy Commissioner of Police (Detective Department)</td><td data-label="CUG"><a href="tel:9147889507" class="teleport-link">9147889507</a></td><td data-label="Email"><a href="mailto:adcpdd-bdnpc@policewb.gov.in" class="comms-link">adcpdd-bdnpc@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">11</td><td data-label="Name">Smt. Ipsita Dutta, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (Detective Department) - I</td><td data-label="CUG"><a href="tel:9147889466" class="teleport-link">9147889466</a></td><td data-label="Email"><a href="mailto:acpdd1bdn@policewb.gov.in" class="comms-link">acpdd1bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">12</td><td data-label="Name">Shri Tridib Biswas, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (Detective Department) - II</td><td data-label="CUG"><a href="tel:9147889449" class="teleport-link">9147889449</a></td><td data-label="Email"><a href="mailto:acpdd2bdn@policewb.gov.in" class="comms-link">acpdd2bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">13</td><td data-label="Name">Smt. Ipsita Dutta, WBPS</td><td data-label="Designation">Holding the Addl. Charge of Assistant Commissioner of Police (Cyber Crime)</td><td data-label="CUG"><a href="tel:9147889466" class="teleport-link">9147889466</a></td><td data-label="Email">-</td></tr>
+            <tr><td data-label="Sl No">14</td><td data-label="Name">Shri Subhankar Biswas, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (North)</td><td data-label="CUG"><a href="tel:9147889438" class="teleport-link">9147889438</a></td><td data-label="Email"><a href="mailto:acpnorthbdnzone1@policewb.gov.in" class="comms-link">acpnorthbdnzone1@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">15</td><td data-label="Name">Smt. Utsha Sreemani, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (New Town)</td><td data-label="CUG"><a href="tel:9147889487" class="teleport-link">9147889487</a></td><td data-label="Email"><a href="mailto:acp-newtown@policewb.gov.in" class="comms-link">acp-newtown@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">16</td><td data-label="Name">Shri Ishan Sinha, IPS</td><td data-label="Designation">Assistant Commissioner of Police (South)</td><td data-label="CUG"><a href="tel:9147889456" class="teleport-link">9147889456</a></td><td data-label="Email"><a href="mailto:acpzone2bdn@policewb.gov.in" class="comms-link">acpzone2bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">17</td><td data-label="Name">Smt. Ipsita Dutta, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (EB)</td><td data-label="CUG"><a href="tel:9147889459" class="teleport-link">9147889459</a></td><td data-label="Email"><a href="mailto:acpebbdnpc@gmail.com" class="comms-link">acpebbdnpc@gmail.com</a></td></tr>
+            <tr><td data-label="Sl No">18</td><td data-label="Name">Shri Kunal Jain, IPS</td><td data-label="Designation">Assistant Commissioner of Police (Rajarhat)</td><td data-label="CUG"><a href="tel:9147889508" class="teleport-link">9147889508</a></td><td data-label="Email"><a href="mailto:acprajarhat@policewb.gov.in" class="comms-link">acprajarhat@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">19</td><td data-label="Name">Ms. Shubhangi Sudarshan Kekan, IPS</td><td data-label="Designation">Assistant Commissioner of Police (Airport)</td><td data-label="CUG"><a href="tel:9147889482" class="teleport-link">9147889482</a></td><td data-label="Email"><a href="mailto:acpairport2bdn@policewb.gov.in" class="comms-link">acpairport2bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">20</td><td data-label="Name">Shri Samrat Roy, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (HQ)</td><td data-label="CUG"><a href="tel:9147889457" class="teleport-link">9147889457</a></td><td data-label="Email"><a href="mailto:ccp.bdnpc-wb@policewb.gov.in" class="comms-link">ccp.bdnpc-wb@policewb.gov.in</a>, <a href="mailto:acpebbdn@policewb.gov.in" class="comms-link">acpebbdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">21</td><td data-label="Name">Shri Subrata Kumar Saha, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (AP)</td><td data-label="CUG">-</td><td data-label="Email"><a href="mailto:acpapbdn@policewb.gov.in" class="comms-link">acpapbdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">22</td><td data-label="Name">Shri Nandadulal Ghosh, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (Traffic)-I</td><td data-label="CUG"><a href="tel:9147889443" class="teleport-link">9147889443</a></td><td data-label="Email"><a href="mailto:acp-traffic1@policewb.gov.in" class="comms-link">acp-traffic1@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">23</td><td data-label="Name">Shri Jayanta Kr. Das, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (Traffic) -II</td><td data-label="CUG"><a href="tel:9147889486" class="teleport-link">9147889486</a></td><td data-label="Email"><a href="mailto:acp-traffic2bdn@policewb.gov.in" class="comms-link">acp-traffic2bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">24</td><td data-label="Name">Shri Tushar Kanti Sardar, WBPS</td><td data-label="Designation">Assistant Commissioner of Police (SB)</td><td data-label="CUG"><a href="tel:9147171382" class="teleport-link">9147171382</a></td><td data-label="Email"><a href="mailto:acp-sblbdnpc@policewb.gov.in" class="comms-link">acp-sblbdnpc@policewb.gov.in</a>, <a href="mailto:acp-sbllbdnpc@policewb.gov.in" class="comms-link">acp-sbllbdnpc@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">25</td><td data-label="Name">Ms. Richa Ghosh, WBPS</td><td data-label="Designation">Assistant Commissioner of Police, Bidhannagar Police Commissionerate</td><td data-label="CUG">-</td><td data-label="Email">-</td></tr>
+            <tr><td data-label="Sl No">26</td><td data-label="Name">Shri Maitrya Mutsudhi, W.B.A&A.S</td><td data-label="Designation">Controller of Finance</td><td data-label="CUG"><a href="tel:9147889480" class="teleport-link">9147889480</a></td><td data-label="Email"><a href="mailto:cof-bdnpc@policewb.gov.in" class="comms-link">cof-bdnpc@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">27</td><td data-label="Name">Shri Kishore Sinha Chowdhury</td><td data-label="Designation">Inspector-in-Charge North Police Station</td><td data-label="CUG"><a href="tel:9147889485" class="teleport-link">9147889485</a></td><td data-label="Email"><a href="mailto:psbdnnorth@policewb.gov.in" class="comms-link">psbdnnorth@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">28</td><td data-label="Name">Shri Dipankar Bhattacharyya</td><td data-label="Designation">Inspector-in-Charge South Police Station</td><td data-label="CUG"><a href="tel:9147889481" class="teleport-link">9147889481</a></td><td data-label="Email"><a href="mailto:psbdnsouth@policewb.gov.in" class="comms-link">psbdnsouth@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">29</td><td data-label="Name">Shri Pradip Sarkar</td><td data-label="Designation">Inspector-in-Charge East Police Station</td><td data-label="CUG"><a href="tel:9147889451" class="teleport-link">9147889451</a></td><td data-label="Email"><a href="mailto:psbdneast@policewb.gov.in" class="comms-link">psbdneast@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">30</td><td data-label="Name">Shri Ram Narayan Pal</td><td data-label="Designation">Inspector-in-Charge Electronics Complex Police Station</td><td data-label="CUG"><a href="tel:9147889450" class="teleport-link">9147889450</a></td><td data-label="Email"><a href="mailto:psecomplex@policewb.gov.in" class="comms-link">psecomplex@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">31</td><td data-label="Name">Shri Biplab Kumar Mukherjee</td><td data-label="Designation">Inspector-in-Charge Lake Town Police Station</td><td data-label="CUG"><a href="tel:9147889479" class="teleport-link">9147889479</a></td><td data-label="Email"><a href="mailto:pslaketown@policewb.gov.in" class="comms-link">pslaketown@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">32</td><td data-label="Name">Shri Amit Kr. Mitra</td><td data-label="Designation">Inspector-in-Charge Baguiati Police Station</td><td data-label="CUG"><a href="tel:9147889475" class="teleport-link">9147889475</a></td><td data-label="Email"><a href="mailto:psbaguiati@policewb.gov.in" class="comms-link">psbaguiati@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">33</td><td data-label="Name">Shri Diptesh Chatterjee</td><td data-label="Designation">Inspector-in-Charge Airport Police Station</td><td data-label="CUG"><a href="tel:9147889436" class="teleport-link">9147889436</a></td><td data-label="Email"><a href="mailto:psairport@policewb.gov.in" class="comms-link">psairport@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">34</td><td data-label="Name">Shri Shibcharan Mondal</td><td data-label="Designation">Inspector-in-Charge New Town Police Station</td><td data-label="CUG"><a href="tel:9147889505" class="teleport-link">9147889505</a></td><td data-label="Email"><a href="mailto:psnewtown@policewb.gov.in" class="comms-link">psnewtown@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">35</td><td data-label="Name">Shri Sudipbandhu Dey</td><td data-label="Designation">Inspector-in-Charge NSCBI Police Station</td><td data-label="CUG"><a href="tel:9147889465" class="teleport-link">9147889465</a></td><td data-label="Email"><a href="mailto:psnscbi@policewb.gov.in" class="comms-link">psnscbi@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">36</td><td data-label="Name">Shri Argha Mukhopadhyay</td><td data-label="Designation">Inspector-in-Charge Rajarhat Police Station</td><td data-label="CUG"><a href="tel:9147889441" class="teleport-link">9147889441</a></td><td data-label="Email"><a href="mailto:psrajarhat@policewb.gov.in" class="comms-link">psrajarhat@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">37</td><td data-label="Name">Shri Montosh Raj</td><td data-label="Designation">Inspector-in-Charge Narayanpur Police Station</td><td data-label="CUG"><a href="tel:9147889511" class="teleport-link">9147889511</a></td><td data-label="Email"><a href="mailto:oc.narayanpurps-bdn@policewb.gov.in" class="comms-link">oc.narayanpurps-bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">38</td><td data-label="Name">Shri Ashis Dalui</td><td data-label="Designation">Inspector-in-Charge Technocity Police Station</td><td data-label="CUG"><a href="tel:9147889510" class="teleport-link">9147889510</a></td><td data-label="Email"><a href="mailto:oc.technocityps-bdn@policewb.gov.in" class="comms-link">oc.technocityps-bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">39</td><td data-label="Name">Shri Montosh Raj</td><td data-label="Designation">Inspector-in-Charge Cyber Crime Police Station</td><td data-label="CUG"><a href="tel:9147889474" class="teleport-link">9147889474</a></td><td data-label="Email"><a href="mailto:ccell.bdn@policewb.gov.in" class="comms-link">ccell.bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">40</td><td data-label="Name">Shri Pinaki Ranjan Rana</td><td data-label="Designation">Inspector-in-Charge Eco Park Police Station</td><td data-label="CUG"><a href="tel:9147889509" class="teleport-link">9147889509</a></td><td data-label="Email"><a href="mailto:oc.ecoparkps-bdn@policewb.gov.in" class="comms-link">oc.ecoparkps-bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">41</td><td data-label="Name">Smt. Ranusri Ghosal</td><td data-label="Designation">Officer-in-Charge BDN Women PS</td><td data-label="CUG"><a href="tel:9147889440" class="teleport-link">9147889440</a></td><td data-label="Email"><a href="mailto:oc.pswomen-bdn@policewb.gov.in" class="comms-link">oc.pswomen-bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">42</td><td data-label="Name">Shri Siddhartha Mukherjee</td><td data-label="Designation">Traffic Inspector, Bidhannagar Traffic Guard</td><td data-label="CUG"><a href="tel:9147889461" class="teleport-link">9147889461</a></td><td data-label="Email"><a href="mailto:bdntraffic@policewb.gov.in" class="comms-link">bdntraffic@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">43</td><td data-label="Name">Shri Sanjoy Kumar</td><td data-label="Designation">Traffic Inspector, Airport Traffic Guard</td><td data-label="CUG"><a href="tel:9147889435" class="teleport-link">9147889435</a></td><td data-label="Email"><a href="mailto:tiairport@policewb.gov.in" class="comms-link">tiairport@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">44</td><td data-label="Name">Shri Partha Pal</td><td data-label="Designation">Traffic Inspector, Rajarhat Traffic Guard</td><td data-label="CUG"><a href="tel:9147889463" class="teleport-link">9147889463</a></td><td data-label="Email"><a href="mailto:rajarhattg-bdnpc@policewb.gov.in" class="comms-link">rajarhattg-bdnpc@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">45</td><td data-label="Name">Shri Susanta Kr. Mondal</td><td data-label="Designation">Traffic Inspector, Laketown Traffic Guard</td><td data-label="CUG"><a href="tel:9147889476" class="teleport-link">9147889476</a></td><td data-label="Email"><a href="mailto:lkttg-bdnpc@policewb.gov.in" class="comms-link">lkttg-bdnpc@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">46</td><td data-label="Name">Shri Hara Sundar Satapati</td><td data-label="Designation">Traffic Inspector, Newtown Traffic Guard</td><td data-label="CUG"><a href="tel:9147889462" class="teleport-link">9147889462</a></td><td data-label="Email"><a href="mailto:newtowntg@policewb.gov.in" class="comms-link">newtowntg@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">47</td><td data-label="Name">Shri Shyama Charan Ojha</td><td data-label="Designation">Traffic Inspector, Baguiati Traffic Guard</td><td data-label="CUG"><a href="tel:9147889446" class="teleport-link">9147889446</a></td><td data-label="Email"><a href="mailto:baguiatitg@policewb.gov.in" class="comms-link">baguiatitg@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">48</td><td data-label="Name">Shri Goutam Paul</td><td data-label="Designation">Traffic Inspector, Nabadiganta Traffic Guard</td><td data-label="CUG"><a href="tel:9147889472" class="teleport-link">9147889472</a></td><td data-label="Email"><a href="mailto:tinabadiganta-bdnpc@policewb.gov.in" class="comms-link">tinabadiganta-bdnpc@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">49</td><td data-label="Name">Shri Tapomay Chattopadhyay</td><td data-label="Designation">Traffic Inspector, Narayanpur Traffic Guard</td><td data-label="CUG"><a href="tel:9147889473" class="teleport-link">9147889473</a></td><td data-label="Email"><a href="mailto:ti.narayanpur@policewb.gov.in" class="comms-link">ti.narayanpur@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">50</td><td data-label="Name">Shri Shyama Charan Ojha</td><td data-label="Designation">Additional charge of Traffic Inspector (HQ)</td><td data-label="CUG"><a href="tel:9147889448" class="teleport-link">9147889448</a></td><td data-label="Email"><a href="mailto:tihqbdnpc@policewb.gov.in" class="comms-link">tihqbdnpc@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">51</td><td data-label="Name">Shri Ananda Mishra</td><td data-label="Designation">Reserve Inspector Bidhannagar</td><td data-label="CUG"><a href="tel:9147889445" class="teleport-link">9147889445</a></td><td data-label="Email"><a href="mailto:ri.bdnpc@policewb.gov.in" class="comms-link">ri.bdnpc@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">52</td><td data-label="Name">Shri Sumanta Bhattacharyya</td><td data-label="Designation">Reserve Officer Bidhannagar</td><td data-label="CUG"><a href="tel:9147889455" class="teleport-link">9147889455</a></td><td data-label="Email"><a href="mailto:roi-bdn@policewb.gov.in" class="comms-link">roi-bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">53</td><td data-label="Name">Shri Saswata Banerjee</td><td data-label="Designation">Inspector of Detective Department</td><td data-label="CUG"><a href="tel:9147889460" class="teleport-link">9147889460</a></td><td data-label="Email"><a href="mailto:insprdd1-bdn@policewb.gov.in" class="comms-link">insprdd1-bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">54</td><td data-label="Name">Shri Suman Kr. Kundu</td><td data-label="Designation">Inspector (HQ) & OC License</td><td data-label="CUG"><a href="tel:9147889464" class="teleport-link">9147889464</a></td><td data-label="Email"><a href="mailto:licencebdnpc@gmail.com" class="comms-link">licencebdnpc@gmail.com</a></td></tr>
+            <tr><td data-label="Sl No">55</td><td data-label="Name">Shri Balay Ghosh</td><td data-label="Designation">Motor Transport Officer</td><td data-label="CUG"><a href="tel:9147889471" class="teleport-link">9147889471</a></td><td data-label="Email"><a href="mailto:mto-bdn@policewb.gov.in" class="comms-link">mto-bdn@policewb.gov.in</a></td></tr>
+            <tr><td data-label="Sl No">56</td><td data-label="Name">Miss. Shilpa Das</td><td data-label="Designation">Officer-in-Charge Computer Cell and Social Media Monitoring Cell, BDNPC</td><td data-label="CUG"><a href="tel:9147890644" class="teleport-link">9147890644</a></td><td data-label="Email"><a href="mailto:oc.computer-bdn@policewb.gov.in" class="comms-link">oc.computer-bdn@policewb.gov.in</a></td></tr>
+        </tbody>
+    </table>
+    
+    <footer>[ COURAGE - CARE - COMMITMENT ]</footer>
+</div>
+
+</body>
+</html>
