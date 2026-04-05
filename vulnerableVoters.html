@@ -3,222 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Vulnerable Voters - 2026</title>
+    <title>Vulnerable Voters Dashboard 2026</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap');
+
         :root {
-            --border-color: #000;
-            --header-bg: #f8f9fa;
-            --hover-bg: #f1f4f9;
+            --bg-color: #0d0221;
+            --card-bg: #1a1a2e;
+            --primary-neon: #00f2ff;
+            --secondary-neon: #7000ff;
+            --accent-pink: #ff00c8;
+            --text-color: #e0e0e0;
+            --danger: #ff4b2b;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Roboto Mono', monospace;
             margin: 0;
-            padding: 15px;
-            background-color: #f4f7f6;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: #fff;
             padding: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            background-image: linear-gradient(rgba(13, 2, 33, 0.9), rgba(13, 2, 33, 0.9)), 
+                              repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 242, 255, 0.05) 1px, rgba(0, 242, 255, 0.05) 2px);
+            background-size: 100% 3px;
         }
 
         h1 {
+            font-family: 'Orbitron', sans-serif;
             text-align: center;
-            text-decoration: underline;
-            font-size: 22px;
-            margin-bottom: 25px;
             text-transform: uppercase;
-            color: #1a3a5a;
+            letter-spacing: 5px;
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px var(--primary-neon);
+            margin-bottom: 30px;
         }
 
-        /* RESPONSIVE WRAPPER */
-        .table-responsive {
+        .container {
             width: 100%;
-            overflow-x: auto; /* Enables horizontal scroll on mobile */
-            -webkit-overflow-scrolling: touch;
-            border: 1px solid var(--border-color);
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            border: 2px solid var(--secondary-neon);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(112, 0, 255, 0.3);
+            background: var(--card-bg);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1100px; /* Prevents columns from squashing on mobile */
+            min-width: 1000px;
         }
 
-        th, td {
-            border: 1px solid var(--border-color);
-            padding: 12px 8px;
-            text-align: center;
-            vertical-align: middle;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        /* STICKY HEADER */
         th {
-            background-color: var(--header-bg);
-            font-weight: bold;
-            text-transform: uppercase;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .text-left {
+            background: linear-gradient(45deg, var(--secondary-neon), var(--accent-pink));
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            padding: 15px;
             text-align: left;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            border-bottom: 3px solid var(--primary-neon);
         }
 
-        /* HOVER EFFECT */
-        tbody tr:hover {
-            background-color: var(--hover-bg);
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+            font-size: 0.9rem;
+            vertical-align: top;
         }
 
-        /* COLUMN WIDTHS */
-        .sl-col { width: 50px; }
-        .ps-col { width: 90px; }
-        .total-col { width: 70px; }
-        .voter-details { width: 25%; }
-        .contact-col { width: 130px; }
-        .polling-station { width: 15%; }
-        .ac-col { width: 140px; }
+        tr:hover {
+            background: rgba(0, 242, 255, 0.1);
+            transition: 0.3s;
+        }
 
+        .sl-no { font-weight: bold; color: var(--accent-pink); }
+        .phone { color: var(--primary-neon); font-weight: bold; }
+        .vulnerability { color: var(--danger); font-weight: bold; text-transform: uppercase; font-size: 0.75rem; }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(112, 0, 255, 0.2);
+            border: 1px solid var(--secondary-neon);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive UI for Mobile */
         @media screen and (max-width: 768px) {
-            h1 { font-size: 18px; }
-            .container { padding: 10px; }
-            th, td { font-size: 12px; padding: 8px 5px; }
+            table, thead, tbody, th, td, tr { display: block; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            tr { 
+                margin-bottom: 20px; 
+                border: 2px solid var(--primary-neon);
+                border-radius: 10px;
+                padding: 10px;
+                background: #16213e;
+            }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+            td:before {
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: var(--primary-neon);
+                content: attr(data-label);
+                font-family: 'Orbitron', sans-serif;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
 <body>
 
+    <h1>List of Vulnerable Voters - 2026</h1>
+
     <div class="container">
-        <h1>List of Vulnerable Voters - 2026</h1>
-
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="sl-col">SL. NO</th>
-                        <th class="ps-col">PS NAME</th>
-                        <th class="total-col">Total Voters</th>
-                        <th class="voter-details">Name and particulars of the Vulnerable Voter</th>
-                        <th class="contact-col">Contact Numbers</th>
-                        <th class="polling-station">No. & Name of Polling Station</th>
-                        <th class="ac-col">Assembly Constituency</th>
-                        <th>Reason for Vulnerability</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Biswanath Mistry S/O- Sudhannya Mistry of Gouranganagar Sanhati Pally, PS- New Town</td>
-                        <td>8296832705</td>
-                        <td>Booth No. 263, Nabin Chandra FP School, Room No. 1</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Abhishek Debnath S/O- Makhan Debnath of 5 No. Govt. Colony, Chandiberia, PO- Gouranganagar, PS- New Town</td>
-                        <td>6291174197</td>
-                        <td>Booth No. 165 Chirasabuj Vidyaniketan, Room- 5</td>
-                        <td>117 Rajarhat Gopalpur</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Sanali Das W/O Samir Das of Sabujpally, Chandiberia, P.O- Krishnapur, PS-New Town, Dist- North 24 Parganas.</td>
-                        <td>9433922610</td>
-                        <td>Booth No. 166 Gobindanagar Community Hall</td>
-                        <td>117 Rajarhat Gopalpur</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Dilip Sarkar S/O Lt. Dukhiram Sarkar of Natun Pally, P.O- Gouranganagar, NewTown, Dist- North 24 Parganas.</td>
-                        <td>7449595761</td>
-                        <td>Booth No. 280 Abhijan Sporting Club</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Sarathi Sarkar W/O Dilip Sarkar of Natun Pally, P.O- Gouranganagar, NewTown, Dist- North 24 Parganas.</td>
-                        <td>7449595761</td>
-                        <td>Booth No. 280 Abhijan Sporting Club</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Chandan Sarkar S/O- Dilip Sarkar of Natun Pally, P.O- Gouranganagar, NewTown, Dist- North 24 Parganas.</td>
-                        <td>7449595761</td>
-                        <td>Booth No. 280 Abhijan Sporting Club</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Susanta Gain S/O Sunil Gain of Gouranganagar Natun Pally, PS- New Town, Dist- North 24 Parganas</td>
-                        <td>8910364460</td>
-                        <td>Booth No. 281 Abhijan Sporting Club</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Nandita Majumder W/O- Biswajit Majumder of- 9 No. Govt. Colony, Chandiberia, PO- Gouranganagar, PS- New Town</td>
-                        <td>8013192856</td>
-                        <td>Booth No. 164 Chira Sabuj Vidyaniketan, Room No. 1,</td>
-                        <td>117 Rajarhat Gopalpur</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Anjali Dhali W/O- Prasanta Dhali of 9 No. Govt. Colony, Chandiberia, PO- Gouranganagar, PS- New Town</td>
-                        <td>9051953910</td>
-                        <td>Booth No. 167 SANTIMOYNAGAR PRATHAMIK VIDYALAYA</td>
-                        <td>117 Rajarhat Gopalpur</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Biswajit Mojumdar(52) S/O Lt Basanta Mojumdar of of 9 No. Govt. Colony, Chandiberia, PO- Gouranganagar, PS- New Town</td>
-                        <td>7439034051</td>
-                        <td>Booth No. 168 Chira Sabuj Vidyaniketan, Room No. 5</td>
-                        <td>117 Rajarhat Gopalpur</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>SL NO</th>
+                    <th>PS NAME</th>
+                    <th>Name and Particulars</th>
+                    <th>Contact</th>
+                    <th>Polling Station</th>
+                    <th>Constituency</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">1</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Biswanath Mistry S/O- Sudhannya Mistry of Gouranganagar Sanhati Pally, PS- New Town</td>
+                    <td data-label="Contact" class="phone">8296832705</td>
+                    <td data-label="Polling Station">Booth No. 264, Nabin Chandra FP School, Room No. 1</td>
+                    <td data-label="Constituency"><span class="badge">115 Rajarhat New Town</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">2</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Abhishek Debnath S/O- Makhan Debnath of 5 No. Govt. Colony, Chandiberia, PO- Gouranganagar, PS- New Town</td>
+                    <td data-label="Contact" class="phone">6291174197</td>
+                    <td data-label="Polling Station">165 BMC Ward No. 22 Municipal Health Centre</td>
+                    <td data-label="Constituency"><span class="badge">117 Rajarhat Gopalpur</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">3</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Sonali Das W/O Samir Das of Sabujpally, Chandiberia, P.O- Krishnapur, PS-New Town, Dist- North 24 Parganas.</td>
+                    <td data-label="Contact" class="phone">9433922610</td>
+                    <td data-label="Polling Station">166 Gobindanagar Community Hall</td>
+                    <td data-label="Constituency"><span class="badge">117 Rajarhat Gopalpur</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">4</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Dilip Sarkar +2 of Natun Pally, P.O- Gouranganagar, NewTown, Dist- North 24 Parganas.</td>
+                    <td data-label="Contact" class="phone">7449595761</td>
+                    <td data-label="Polling Station">280 Abhijan Sporting Club</td>
+                    <td data-label="Constituency"><span class="badge">115 Rajarhat New Town</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">5</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Susanta Gain S/O Sunil Gain of Gouranganagar Natun Pally, PS- New Town, Dist- North 24 Parganas</td>
+                    <td data-label="Contact" class="phone">8910364460</td>
+                    <td data-label="Polling Station">281 Abhijan Sporting Club</td>
+                    <td data-label="Constituency"><span class="badge">115 Rajarhat New Town</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">6</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Nandita Majumder W/O- Biswajit Majumder of- 9 No. Govt. Colony, Chandiberia, PO- Gouranganagar, PS- New Town</td>
+                    <td data-label="Contact" class="phone">8013192856</td>
+                    <td data-label="Polling Station">Booth No. 164 Chandiberia EWS Community Hall</td>
+                    <td data-label="Constituency"><span class="badge">117 Rajarhat Gopalpur</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">7</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Anjali Dhali W/O- Prasanta Dhali of 9 No. Govt. Colony, Chandiberia, PO- Gouranganagar, PS- New Town</td>
+                    <td data-label="Contact" class="phone">9051953910</td>
+                    <td data-label="Polling Station">Booth No. 167 SANTIMOYNAGAR PRATHAMIK VIDYALAYA</td>
+                    <td data-label="Constituency"><span class="badge">117 Rajarhat Gopalpur</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">8</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Biswajit Mojumdar(52) S/O Lt Basanta Mojumdar of 9 No. Govt. Colony, Chandiberia, PO- Gouranganagar, PS- New Town</td>
+                    <td data-label="Contact" class="phone">7439034051</td>
+                    <td data-label="Polling Station">Booth No. 168 Chandiberia EWS Community Hall</td>
+                    <td data-label="Constituency"><span class="badge">117 Rajarhat Gopalpur</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">9</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Avijit Mondal C/O Ganesh Mondal Vill+p.o..Gouranga nagar P.s.. New Town Kol.. 700162</td>
+                    <td data-label="Contact" class="phone">9073273975</td>
+                    <td data-label="Polling Station">265 Nabin Chandra F.P. School</td>
+                    <td data-label="Constituency"><span class="badge">115 Rajarhat New Town</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">10</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Gopal Giri S/O sankar Giri Of Kestopur Christen para Ps- new Town P. S - New town</td>
+                    <td data-label="Contact" class="phone">6289514552</td>
+                    <td data-label="Polling Station">173 Krishnapur Basic Primary School</td>
+                    <td data-label="Constituency"><span class="badge">117 Rajarhat Gopalpur</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">11</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Uday Bhattacharya S/O somor Bhattacharya Of Kestopur Rajbongsi para mission bazar P. S - Baguihati</td>
+                    <td data-label="Contact" class="phone">8910851455</td>
+                    <td data-label="Polling Station">174 Krishnapur Basic Primary School</td>
+                    <td data-label="Constituency"><span class="badge">117 Rajarhat Gopalpur</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">12</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Smt. Sonali Chaudhuri W/O Amit Chaudhuri of CE/1/C/87, Street No. 202, behind Axis Mall, PS-New Town</td>
+                    <td data-label="Contact" class="phone">8902001070</td>
+                    <td data-label="Polling Station">Booth No. 295, Dr. APJ Abdul Kalam Government College</td>
+                    <td data-label="Constituency"><span class="badge">115 Rajarhat New Town</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+                <tr>
+                    <td data-label="SL NO" class="sl-no">13</td>
+                    <td data-label="PS NAME">New Town</td>
+                    <td data-label="Name and Particulars">Jayanta Acharya S/O Lt. Abhayapada Acharya of Street No.- 97, BA 22, Flat B1, Green Acra Co-operative Housing, New Town Action Area-1 B, Kolkata-700156</td>
+                    <td data-label="Contact" class="phone">9433054791</td>
+                    <td data-label="Polling Station">Booth No. 298, Dr. APJ Abdul Kalam Government College</td>
+                    <td data-label="Constituency"><span class="badge">115 Rajarhat New Town</span></td>
+                    <td data-label="Reason" class="vulnerability">Received threat from Trouble monger</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
 </body>
 </html>
