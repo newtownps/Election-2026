@@ -3,157 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vulnerable Booths with Hamlet - 2026</title>
     <style>
-        /* Modern Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
+
+        :root {
+            --neon-blue: #00d4ff;
+            --neon-purple: #9d00ff;
+            --neon-pink: #ff0055;
+            --neon-green: #39ff14;
+            --bg-dark: #050505;
+            --card-bg: #111111;
+            /* New hover color variables */
+            --hover-bg: rgba(0, 212, 255, 0.1);
+            --hover-border: #00ffff;
         }
 
         body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                              repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 212, 255, 0.03) 2px, rgba(0, 212, 255, 0.03) 4px);
+        }
+
+        .header {
+            text-align: center;
             padding: 20px;
-            background-color: #f4f7f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            border: 2px solid var(--neon-blue);
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px var(--neon-blue);
+            background: rgba(0, 212, 255, 0.05);
         }
 
-        .header-title {
-            font-size: clamp(18px, 5vw, 24px);
-            font-weight: 800;
-            margin-bottom: 25px;
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
             text-transform: uppercase;
-            text-align: center;
-            color: #1a3a5a;
-            letter-spacing: 1px;
+            letter-spacing: 4px;
+            color: var(--neon-blue);
         }
 
-        /* Container for the table */
-        .report-card {
-            width: 100%;
-            max-width: 1300px;
-            background-color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #d1d9e0;
+        .table-section {
+            margin-bottom: 50px;
         }
 
-        /* Responsive Scroll Wrapper - This makes all columns move together */
-        .scroll-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            /* Ensures table stays wide enough to keep data on one line */
-            min-width: 1100px; 
-        }
-
-        th {
-            background-color: #f8f9fa;
-            color: #333;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-            padding: 15px 10px;
-            border-bottom: 2px solid #000;
-            border-right: 1px solid #d1d9e0;
-        }
-
-        td {
-            padding: 12px 10px;
-            font-size: 13px;
-            color: #444;
-            border-bottom: 1px solid #eee;
-            border-right: 1px solid #eee;
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        /* Specific alignment for text-heavy columns */
-        .text-left { text-align: left; }
-        
-        .hamlet-highlight {
-            font-weight: 700;
-            color: #d32f2f;
-        }
-
-        .ac-cell {
-            background-color: #f0f4f8;
-            font-weight: 600;
-        }
-
-        /* Mobile Swipe Indicator */
-        .mobile-hint {
-            display: none;
-            background: #1a3a5a;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 12px;
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-pink);
+            border-left: 5px solid var(--neon-pink);
+            padding-left: 15px;
+            font-size: 1.2rem;
             margin-bottom: 15px;
         }
 
-        @media (max-width: 1100px) {
-            .mobile-hint { display: block; }
-            body { padding: 10px; }
+        /* --- THE RESPONSIVE MAGIC --- */
+        .game-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            border: 1px solid #333;
         }
 
-        /* Print Optimization */
-        @media print {
-            .report-card { box-shadow: none; border: 1px solid black; }
-            .mobile-hint { display: none; }
-            table { min-width: 100%; }
+        .game-table thead {
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+        }
+
+        .game-table th {
+            padding: 12px;
+            text-align: left;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #000;
+        }
+
+        .game-table td {
+            padding: 12px;
+            border: 1px solid #222;
+            font-size: 0.95rem;
+            vertical-align: top;
+            /* Prepare for text color transition on hover */
+            transition: color 0.3s ease;
+        }
+
+        /* --- New Gaming Hover Effect for Desktop --- */
+        .game-table tr {
+            /* Smooth background transition */
+            transition: background 0.3s ease;
+        }
+
+        .game-table tr:hover {
+            /* 1. Neon background highlight */
+            background: var(--hover-bg);
+            cursor: pointer; /* Suggests interactivity */
+        }
+
+        /* 2. Inner border highlight on hover */
+        .game-table tr:hover td {
+            border-color: var(--hover-border);
+            color: #fff; /* Ensure high contrast */
+        }
+
+        /* 3. Outer row glow effect */
+        .game-table tbody tr:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .highlight-blue { color: var(--neon-blue); font-weight: bold; }
+        .highlight-pink { color: var(--neon-pink); font-weight: bold; }
+        .highlight-green { color: var(--neon-green); font-weight: bold; }
+
+        /* MOBILE VIEWPORT (CARD MODE) */
+        @media screen and (max-width: 900px) {
+            .game-table, .game-table thead, .game-table tbody, .game-table th, .game-table td, .game-table tr {
+                display: block;
+            }
+            .game-table thead { display: none; } /* Hide headers */
+            
+            .game-table tr {
+                border: 2px solid var(--neon-purple);
+                margin-bottom: 20px;
+                border-radius: 8px;
+                background: #000;
+                /* Adjust mobile hover slightly */
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            /* Adjust mobile 'card' hover to a lift and glow */
+            .game-table tr:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(157, 0, 255, 0.4);
+                background: #050505; /* Keep background dark, just glow */
+            }
+
+            .game-table tr:hover td {
+                 border-color: #222; /* Keep dark inner borders */
+                 color: #ffffff;
+            }
+
+            .game-table td {
+                border: none;
+                border-bottom: 1px solid #222;
+                position: relative;
+                padding-left: 45%;
+                text-align: right;
+                min-height: 40px;
+                transition: none; /* No transition needed for stacking */
+            }
+
+            .game-table td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 40%;
+                text-align: left;
+                font-weight: 700;
+                color: var(--neon-blue);
+                font-size: 0.75rem;
+                text-transform: uppercase;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="header-title">Vulnerable Booths with Hamlet [AC- 115]</div>
+<div class="header">
+    <h1>VULNERABLE BOOTHS & HAMLETS</h1>
+    
+</div>
 
-    <div class="mobile-hint">↔ Swipe table horizontally to see all data</div>
-
-    <div class="report-card">
-        <div class="scroll-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>District</th>
-                        <th>Police Comm.</th>
-                        <th>PS Name</th>
-                        <th>AC No. & Name</th>
-                        <th>No. of P.S.</th>
-                        <th style="width: 250px;">Polling Station No & Name</th>
-                        <th style="width: 200px;">Hamlets (Vulnerable)</th>
-                        <th>Nature of CBM Activity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">115 Rajarhat New Town</td><td>1</td><td class="text-left">264 Nabinchandra F.P.School</td><td class="hamlet-highlight">Gauranganagar</td><td></td>
-                    </tr>
-                    <tr>
-                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">115 Rajarhat New Town</td><td>1</td><td class="text-left">265 Nabinchandra F.P.School</td><td class="hamlet-highlight">Saradapally</td><td></td>
-                    </tr>
-                    <tr>
-                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">115 Rajarhat New Town</td><td>1</td><td class="text-left">280 Abhijan Sporting Club</td><td class="hamlet-highlight">Notunpally</td><td></td>
-                    </tr>
-                    <tr>
-                        <td>N 24 Pgns.</td><td>BDN PC</td><td>New Town PS</td><td class="ac-cell">115 Rajarhat New Town</td><td>1</td><td class="text-left">281 Abhijan Sporting Club</td><td class="hamlet-highlight">Mathpara</td><td></td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="table-section">
+    
+    <table class="game-table">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>District / PD</th>
+                <th>PS Name</th>
+                <th>AC No.</th>
+                <th>Polling Station No & Name</th>
+                <th>Vulnerable Hamlets</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-label="SL">1</td>
+                <td data-label="District / PD">N 24 Pgns. / BDN PC</td>
+                <td data-label="PS Name">New Town PS</td>
+                <td data-label="AC No.">115 Rajarhat New Town</td>
+                <td data-label="Polling Station">264 Nabinchandra F.P.School</td>
+                <td data-label="Vulnerable Hamlets" class="highlight-green">Gauranganagar</td>
+            </tr>
+            <tr>
+                <td data-label="SL">2</td>
+                <td data-label="District / PD">N 24 Pgns. / BDN PC</td>
+                <td data-label="PS Name">New Town PS</td>
+                <td data-label="AC No.">115 Rajarhat New Town</td>
+                <td data-label="Polling Station">265 Nabinchandra F.P.School</td>
+                <td data-label="Vulnerable Hamlets" class="highlight-green">Saradapally</td>
+            </tr>
+            <tr>
+                <td data-label="SL">3</td>
+                <td data-label="District / PD">N 24 Pgns. / BDN PC</td>
+                <td data-label="PS Name">New Town PS</td>
+                <td data-label="AC No.">115 Rajarhat New Town</td>
+                <td data-label="Polling Station">280 Abhijan Sporting Club</td>
+                <td data-label="Vulnerable Hamlets" class="highlight-green">Notunpally</td>
+            </tr>
+            <tr>
+                <td data-label="SL">4</td>
+                <td data-label="District / PD">N 24 Pgns. / BDN PC</td>
+                <td data-label="PS Name">New Town PS</td>
+                <td data-label="AC No.">115 Rajarhat New Town</td>
+                <td data-label="Polling Station">281 Abhijan Sporting Club</td>
+                <td data-label="Vulnerable Hamlets" class="highlight-green">Mathpara</td>
+            </tr>
+         
+        
+            <tr>
+                <td data-label="SL">12</td>
+                <td data-label="District / PD">N 24 Pgns. / BDN PC</td>
+                <td data-label="PS Name">New Town PS</td>
+                <td data-label="AC No.">115 Rajarhat New Town</td>
+                <td data-label="Polling Station">262 Sulongari Colony Para Madhyamik School</td>
+                <td data-label="Vulnerable Hamlets" class="highlight-green">Sulanguri Colony Para</td>
+            </tr>
+            <tr>
+                <td data-label="SL">13</td>
+                <td data-label="District / PD">N 24 Pgns. / BDN PC</td>
+                <td data-label="PS Name">New Town PS</td>
+                <td data-label="AC No.">115 Rajarhat New Town</td>
+                <td data-label="Polling Station">279 Gouranganagar Janakalyan Sangha</td>
+                <td data-label="Vulnerable Hamlets" class="highlight-green">Gauranganagar</td>
+            </tr>
+            <tr>
+                <td data-label="SL">14</td>
+                <td data-label="District / PD">N 24 Pgns. / BDN PC</td>
+                <td data-label="PS Name">New Town PS</td>
+                <td data-label="AC No.">115 Rajarhat New Town</td>
+                <td data-label="Polling Station">298 Dr. APJ Abdul Kalam Government College</td>
+                <td data-label="Vulnerable Hamlets" class="highlight-green">New Town</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
