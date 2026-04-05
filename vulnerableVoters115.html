@@ -3,174 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Vulnerable Voters - 2026</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
+
         :root {
-            --border-color: #000;
-            --header-bg: #f8f9fa;
-            --hover-bg: #f1f4f9;
+            --neon-blue: #00d4ff;
+            --neon-purple: #9d00ff;
+            --neon-pink: #ff0055;
+            --neon-green: #39ff14;
+            --bg-dark: #050505;
+            --card-bg: #111111;
+            /* New hover color variables */
+            --hover-bg: rgba(0, 212, 255, 0.1);
+            --hover-border: #00ffff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
             margin: 0;
-            padding: 15px;
-            background-color: #f4f7f6;
-            color: #333;
+            padding: 10px;
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                              repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 212, 255, 0.03) 2px, rgba(0, 212, 255, 0.03) 4px);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: #fff;
+        .header {
+            text-align: center;
             padding: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            border: 2px solid var(--neon-blue);
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px var(--neon-blue);
+            background: rgba(0, 212, 255, 0.05);
         }
 
         h1 {
-            text-align: center;
-            text-decoration: underline;
-            font-size: 22px;
-            margin-bottom: 25px;
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
             text-transform: uppercase;
-            color: #1a3a5a;
+            letter-spacing: 4px;
+            color: var(--neon-blue);
         }
 
-        /* RESPONSIVE WRAPPER */
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto; /* Enables horizontal scroll on mobile */
-            -webkit-overflow-scrolling: touch;
-            border: 1px solid var(--border-color);
+        .table-section {
+            margin-bottom: 50px;
         }
 
-        table {
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-pink);
+            border-left: 5px solid var(--neon-pink);
+            padding-left: 15px;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        /* --- THE RESPONSIVE MAGIC --- */
+        .game-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1100px; /* Prevents columns from squashing on mobile */
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            border: 1px solid #333;
         }
 
-        th, td {
-            border: 1px solid var(--border-color);
-            padding: 12px 8px;
-            text-align: center;
-            vertical-align: middle;
-            font-size: 13px;
-            line-height: 1.5;
+        .game-table thead {
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
         }
 
-        /* STICKY HEADER */
-        th {
-            background-color: var(--header-bg);
-            font-weight: bold;
-            text-transform: uppercase;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .text-left {
+        .game-table th {
+            padding: 12px;
             text-align: left;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #000;
         }
 
-        /* HOVER EFFECT */
-        tbody tr:hover {
-            background-color: var(--hover-bg);
+        .game-table td {
+            padding: 12px;
+            border: 1px solid #222;
+            font-size: 0.95rem;
+            vertical-align: top;
+            /* Prepare for text color transition on hover */
+            transition: color 0.3s ease;
         }
 
-        /* COLUMN WIDTHS */
-        .sl-col { width: 50px; }
-        .ps-col { width: 90px; }
-        .total-col { width: 70px; }
-        .voter-details { width: 25%; }
-        .contact-col { width: 130px; }
-        .polling-station { width: 15%; }
-        .ac-col { width: 140px; }
+        /* --- New Gaming Hover Effect for Desktop --- */
+        .game-table tr {
+            /* Smooth background transition */
+            transition: background 0.3s ease;
+        }
 
-        @media screen and (max-width: 768px) {
-            h1 { font-size: 18px; }
-            .container { padding: 10px; }
-            th, td { font-size: 12px; padding: 8px 5px; }
+        .game-table tr:hover {
+            /* 1. Neon background highlight */
+            background: var(--hover-bg);
+            cursor: pointer; /* Suggests interactivity */
+        }
+
+        /* 2. Inner border highlight on hover */
+        .game-table tr:hover td {
+            border-color: var(--hover-border);
+            color: #fff; /* Ensure high contrast */
+        }
+
+        /* 3. Outer row glow effect */
+        .game-table tbody tr:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .highlight-blue { color: var(--neon-blue); font-weight: bold; }
+        .highlight-pink { color: var(--neon-pink); font-weight: bold; }
+        .highlight-green { color: var(--neon-green); font-weight: bold; }
+
+        /* MOBILE VIEWPORT (CARD MODE) */
+        @media screen and (max-width: 900px) {
+            .game-table, .game-table thead, .game-table tbody, .game-table th, .game-table td, .game-table tr {
+                display: block;
+            }
+            .game-table thead { display: none; } /* Hide headers */
+            
+            .game-table tr {
+                border: 2px solid var(--neon-purple);
+                margin-bottom: 20px;
+                border-radius: 8px;
+                background: #000;
+                /* Adjust mobile hover slightly */
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            /* Adjust mobile 'card' hover to a lift and glow */
+            .game-table tr:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(157, 0, 255, 0.4);
+                background: #050505; /* Keep background dark, just glow */
+            }
+
+            .game-table tr:hover td {
+                 border-color: #222; /* Keep dark inner borders */
+                 color: #ffffff;
+            }
+
+            .game-table td {
+                border: none;
+                border-bottom: 1px solid #222;
+                position: relative;
+                padding-left: 45%;
+                text-align: right;
+                min-height: 40px;
+                transition: none; /* No transition needed for stacking */
+            }
+
+            .game-table td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 40%;
+                text-align: left;
+                font-weight: 700;
+                color: var(--neon-blue);
+                font-size: 0.75rem;
+                text-transform: uppercase;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>List of Vulnerable Voters - 2026 [AC- 115]</h1>
+<div class="header">
+    <h1>VULNERABLE VOTERS</h1>
+    
+</div>
 
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="sl-col">SL. NO</th>
-                        <th class="ps-col">PS NAME</th>
-                        <th class="total-col">Total Voters</th>
-                        <th class="voter-details">Name and particulars of the Vulnerable Voter</th>
-                        <th class="contact-col">Contact Numbers</th>
-                        <th class="polling-station">No. & Name of Polling Station</th>
-                        <th class="ac-col">Assembly Constituency</th>
-                        <th>Reason for Vulnerability</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Biswanath Mistry S/O- Sudhannya Mistry of Gouranganagar Sanhati Pally, PS- New Town</td>
-                        <td>8296832705</td>
-                        <td>Booth No. 263, Nabin Chandra FP School, Room No. 1</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>2</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Dilip Sarkar S/O Lt. Dukhiram Sarkar of Natun Pally, P.O- Gouranganagar, NewTown, Dist- North 24 Parganas.</td>
-                        <td>7449595761</td>
-                        <td>Booth No. 280 Abhijan Sporting Club</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Sarathi Sarkar W/O Dilip Sarkar of Natun Pally, P.O- Gouranganagar, NewTown, Dist- North 24 Parganas.</td>
-                        <td>7449595761</td>
-                        <td>Booth No. 280 Abhijan Sporting Club</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Chandan Sarkar S/O- Dilip Sarkar of Natun Pally, P.O- Gouranganagar, NewTown, Dist- North 24 Parganas.</td>
-                        <td>7449595761</td>
-                        <td>Booth No. 280 Abhijan Sporting Club</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>New Town</td>
-                        <td>1</td>
-                        <td class="text-left">Susanta Gain S/O Sunil Gain of Gouranganagar Natun Pally, PS- New Town, Dist- North 24 Parganas</td>
-                        <td>8910364460</td>
-                        <td>Booth No. 281 Abhijan Sporting Club</td>
-                        <td>115 Rajarhat New Town</td>
-                        <td>Received threat from Trouble monger</td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="table-section">
+    
+    <table class="game-table">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>PS Name</th>
+                <th>Voter Details</th>
+                <th>Contact</th>
+                <th>Booth Info</th>
+                <th>Constituency</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-label="SL">1</td>
+                <td data-label="PS Name">New Town</td>
+                <td data-label="Voter Details">Biswanath Mistry S/O- Sudhannya Mistry of Gouranganagar Sanhati Pally, PS- New Town</td>
+                <td data-label="Contact" class="highlight-blue">8296832705</td>
+                <td data-label="Booth Info">Booth No. 264, Nabin Chandra FP School, Room No. 1</td>
+                <td data-label="Constituency" class="highlight-pink">115 Rajarhat New Town</td>
+                <td data-label="Reason">Received threat from Trouble monger</td>
+            </tr>
+            
+            
+            <tr>
+                <td data-label="SL">4</td>
+                <td data-label="PS Name">New Town</td>
+                <td data-label="Voter Details">Dilip Sarkar +2 of Natun Pally, P.O- Gouranganagar, NewTown, Dist- North 24 Parganas.</td>
+                <td data-label="Contact" class="highlight-blue">7449595761</td>
+                <td data-label="Booth Info">280 Abhijan Sporting Club</td>
+                <td data-label="Constituency" class="highlight-pink">115 Rajarhat New Town</td>
+                <td data-label="Reason">Received threat from Trouble monger</td>
+            </tr>
+            <tr>
+                <td data-label="SL">5</td>
+                <td data-label="PS Name">New Town</td>
+                <td data-label="Voter Details">Susanta Gain S/O Sunil Gain of Gouranganagar Natun Pally, PS- New Town, Dist- North 24 Parganas</td>
+                <td data-label="Contact" class="highlight-blue">8910364460</td>
+                <td data-label="Booth Info">281 Abhijan Sporting Club</td>
+                <td data-label="Constituency" class="highlight-pink">115 Rajarhat New Town</td>
+                <td data-label="Reason">Received threat from Trouble monger</td>
+            </tr>
+            
+           
+            <tr>
+                <td data-label="SL">9</td>
+                <td data-label="PS Name">New Town</td>
+                <td data-label="Voter Details">Avijit Mondal C/O Ganesh Mondal Vill+p.o..Gouranga nagar P.s.. New Town Kol.. 700162</td>
+                <td data-label="Contact" class="highlight-blue">9073273975</td>
+                <td data-label="Booth Info">265 Nabin Chandra F.P. School</td>
+                <td data-label="Constituency" class="highlight-pink">115 Rajarhat New Town</td>
+                <td data-label="Reason">Received threat from Trouble monger</td>
+            </tr>
+            
+            <tr>
+                <td data-label="SL">12</td>
+                <td data-label="PS Name">New Town</td>
+                <td data-label="Voter Details">Smt. Sonali Chaudhuri W/O Amit Chaudhuri of CE/1/C/87, Street No. 202, behind Axis Mall, PS-New Town</td>
+                <td data-label="Contact" class="highlight-blue">8902001070</td>
+                <td data-label="Booth Info">Booth No. 295, Dr. APJ Abdul Kalam Government College</td>
+                <td data-label="Constituency" class="highlight-pink">115 Rajarhat New Town</td>
+                <td data-label="Reason">Received threat from Trouble monger</td>
+            </tr>
+            <tr>
+                <td data-label="SL">13</td>
+                <td data-label="PS Name">New Town</td>
+                <td data-label="Voter Details">Jayanta Acharya S/O Lt. Abhayapada Acharya of Street No.- 97, BA 22, Flat B1, Green Acra Co-operative Housing, New Town AA-1B</td>
+                <td data-label="Contact" class="highlight-blue">9433054791</td>
+                <td data-label="Booth Info">Booth No. 298, Dr. APJ Abdul Kalam Government College</td>
+                <td data-label="Constituency" class="highlight-pink">115 Rajarhat New Town</td>
+                <td data-label="Reason">Received threat from Trouble monger</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
